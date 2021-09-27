@@ -4,7 +4,7 @@
         1
     ],
     "description": "Specify a list of audio languages to remove from video files.",
-    "icon": "",
+    "icon": "https://raw.githubusercontent.com/Josh5/unmanic.plugin.remove_audio_stream_by_language/master/icon.png",
     "id": "remove_audio_stream_by_language",
     "name": "Remove audio streams by language",
     "priorities": {
