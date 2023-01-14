@@ -33,14 +33,43 @@ logger = logging.getLogger("Unmanic.Plugin.remove_audio_stream_by_language")
 
 class Settings(PluginSettings):
     settings = {
-        "languages": ''
-    }
-    form_settings = {
-        "languages": {
-            "label": "Languages to remove",
-        },
+        "languages": '',
+        "advanced":              False,
+        "main_options":          '',
+        "advanced_options":      ''
     }
 
+
+    def __init__(self, *args, **kwargs):
+        super(Settings, self).__init__(*args, **kwargs)
+        self.form_settings = {
+            "languages": {
+                "label": "Languages to remove",
+            },
+            "advanced": {
+                "label": "Write your own FFmpeg params",
+            },
+            "main_options":          self.__set_main_options_form_settings(),
+            "advanced_options":      self.__set_advanced_options_form_settings()
+        }
+
+    def __set_main_options_form_settings(self):
+        values = {
+            "label":      "Write your own main options",
+            "input_type": "textarea",
+        }
+        if not self.get_setting('advanced'):
+            values["display"] = 'hidden'
+        return values
+
+    def __set_advanced_options_form_settings(self):
+        values = {
+            "label":      "Write your own advanced options",
+            "input_type": "textarea",
+        }
+        if not self.get_setting('advanced'):
+            values["display"] = 'hidden'
+        return values
 
 class PluginStreamMapper(StreamMapper):
     def __init__(self):
@@ -176,6 +205,10 @@ def on_worker_process(data):
     if mapper.streams_need_processing():
         # Set the output file
         mapper.set_output_file(data.get('file_out'))
+
+        if settings.get_setting('advanced'):
+            mapper.main_options += settings.get_setting('main_options').split()
+            mapper.advanced_options += settings.get_setting('advanced_options').split()
 
         # clear stream mappings, copy everything
         mapper.stream_mapping = ['-map', '0']
