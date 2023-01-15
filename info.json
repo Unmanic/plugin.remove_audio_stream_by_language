@@ -1,13 +1,13 @@
 {
-    "author": "Josh.5",
+    "author": "Josh.5, SenorSmartyPants",
     "compatibility": [
         1,
         2
     ],
-    "description": "Specify a list of audio languages to remove from video files.",
+    "description": "Specify a list of audio/subtitle languages to remove from video files.",
     "icon": "https://raw.githubusercontent.com/Josh5/unmanic.plugin.remove_audio_stream_by_language/master/icon.png",
-    "id": "remove_audio_stream_by_language",
-    "name": "Remove audio streams by language",
+    "id": "remove_stream_by_language",
+    "name": "Remove audio/subtitle streams by language",
     "platform": [
         "all"
     ],
