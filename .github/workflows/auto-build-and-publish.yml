@@ -60,13 +60,13 @@ jobs:
     # Setup python environment
     - name: Set up Python 3.8
       if: success()
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: 3.8
 
     # Setup node environment
     - name: Set up node 16
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: '16'
 
@@ -79,13 +79,13 @@ jobs:
         python ./scripts/generate_repository.py
 
     # Upload artifacts
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       with:
         name: plugin.${{ steps.prepare.outputs.plugin_id }}-v${{ steps.prepare.outputs.plugin_version }}
         path: repo/**/*.zip
 
     # Generate tagged release (should not be updated)
-    - uses: mukunku/tag-exists-action@v1.0.0
+    - uses: mukunku/tag-exists-action@v1.2.0
       id: check_tag_exists
       with: 
         tag: ${{ steps.prepare.outputs.plugin_version }}
